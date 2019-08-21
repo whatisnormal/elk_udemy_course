@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+function jcurl () {
+    /usr/bin/curl -H "Content-Type: application/json" "$@"
+}

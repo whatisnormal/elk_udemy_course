@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+source ././../../curl
+
+# Delete previous index
+jcurl -XDELETE 127.0.0.1:9200/movies | jq
