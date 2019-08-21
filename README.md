@@ -1,5 +1,9 @@
-https://www.udemy.com/elasticsearch-7-and-elastic-stack
 
+Contains the exercises for the Udemy curse [for Elasticsearch 7](ttps://www.udemy.com/elasticsearch-7-and-elastic-stack)
+
+## Pre-requirements
+
+1. Load elasticsearch and run it locally.
 
 ```bash
 
