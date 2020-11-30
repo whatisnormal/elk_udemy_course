@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+
+source ././../../curl
+
+#Query light needs to apply url encoded, thus the below statement will not work.
+jcurl -XGET "127.0.0.1:9200/movies/_search?q=+year:>1980+title:star%20wars" | jq
+

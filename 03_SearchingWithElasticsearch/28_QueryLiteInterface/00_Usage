@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+
+source ././../../curl
+
+jcurl -XGET "127.0.0.1:9200/movies/_search?q=title:star&pretty" | jq
+
+jcurl -XGET "127.0.0.1:9200/movies/_search?q=+year>2010+title:trek&pretty" | jq

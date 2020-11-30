@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+
+source ././../../curl
+
+# Matches if term exists in field.
+jcurl -XGET 127.0.0.1:9200/movies/_search?pretty -d  '
+ {
+    "query" : {
+      "match" : {
+          "title" : "star"
+      }
+    }
+ }
+' | jq
+
+#Exact phrase
+jcurl -XGET 127.0.0.1:9200/movies/_search?pretty -d  '
+ {
+    "query" : {
+      "match_phrase" : {
+          "title" : "star"
+      }
+    }
+ }
+' | jq
+
+
+#Compound query 1
+jcurl -XGET 127.0.0.1:9200/movies/_search?pretty -d  '
+ {
+    "query" : {
+      "bool" : {
+          "must" : {"match_phrase" : {"title": "Star Wars"}},
+          "filter" : {"range": {"year": {"gte": "1980"}}}
+      }
+    }
+ }
+' | jq
+
+#Compound query 2. Must have trek in the title
+jcurl -XGET 127.0.0.1:9200/movies/_search?pretty -d  '
+ {
+    "query" : {
+      "bool" : {
+          "must" : {"term" : {"title": "trek"}},
+          "filter" : {"range": {"year": {"gte": "2010"}}}
+      }
+    }
+ }
+' | jq
+
+# Nested field
+
+

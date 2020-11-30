@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+
+source ././../../curl
+
+
+
+#Seach for sci-fi movies, before 1960, sorted by title
+
+## Apply a sub-field to the title field, for exact match and sorting purposes.
+jcurl -XPUT "127.0.0.1:9200/movies" -d '
+  {
+    "mappings": {
+      "properties" : {
+        "title" : {
+          "type": "text"
+          "fields" : {
+            "raw": {
+              "type" : "keyword"
+            }
+          }
+        }
+      }
+    }
+  }
+'
+
+
+
+# 'Title' must have an unalized field when doing the mapping
+jcurl -XGET "127.0.0.1:9200/movies/_search?sort=title.raw&pretty" -d '
+{
+  "query" : {
+    "bool": {
+      "must" : { "match" : {"genre" : "Sci-Fi"}},
+      "filter" : {"range" : {"year" :  {"lt" : 1960}}}
+    }
+  }
+}
+' | jq
